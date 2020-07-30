@@ -1,30 +1,22 @@
 package com.twu.hotSearchs;
 
+import java.util.Objects;
+
 public class HotSearch implements Comparable<HotSearch> {
     private static long id;
-    private String name;
     private String desc;
-    private long heatNumber;
+    private long heatNumber = 0;
     private boolean superHotSearch;
 
-    public HotSearch(String name, String desc){
+    public HotSearch(String desc){
         synchronized (HotSearch.class) {
             id++;
         }
-        this.name = name;
         this.desc = desc;
     }
 
     public long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDesc() {
@@ -33,14 +25,6 @@ public class HotSearch implements Comparable<HotSearch> {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public long getHeatNumber() {
-        return heatNumber;
-    }
-
-    public void setHeatNumber(long heatNumber) {
-        this.heatNumber = heatNumber;
     }
 
     public boolean isSuperHotSearch() {
@@ -52,29 +36,35 @@ public class HotSearch implements Comparable<HotSearch> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HotSearch hotSearch = (HotSearch) o;
+        return Objects.equals(desc, hotSearch.desc);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(desc);
+    }
+
+    @Override
     public int compareTo(HotSearch o) {
         if (o == null)
             throw new RuntimeException();
 
         if (this.heatNumber > o.heatNumber)
             return 1;
-        else if (this.heatNumber == o.heatNumber){
-            int res = this.getName().compareTo(o.getName());
-            if (res < 0)
+        else if (this.heatNumber == o.heatNumber) {
+            int res = this.getDesc().compareTo(o.getDesc());
+            if (res > 0)
                 return 1;
-            else if (res > 0)
+            else if (res < 0)
                 return -1;
-            else {
-                int res2 = this.getDesc().compareTo(o.getDesc());
-                if (res2 < 0)
-                    return 1;
-                else if (res2 > 0)
-                    return -1;
-                else
-                    return 0;
-            }
-        }
-        else
+            else
+                return 0;
+        }else {
             return -1;
+        }
     }
 }

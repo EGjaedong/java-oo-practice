@@ -9,7 +9,7 @@ public class Admin extends User {
     }
 
     public void addSuperHotSearch(String name, String desc) {
-        HotSearch hotSearch = new HotSearch(name, desc);
+        HotSearch hotSearch = new HotSearch(desc);
         hotSearch.setSuperHotSearch(true);
     }
 }

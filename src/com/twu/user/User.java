@@ -16,7 +16,7 @@ public class User {
         this.hotSearches = hotSearches;
         this.name = name;
         synchronized (User.class){
-            id++;
+            sid++;
         }
         this.id = sid;
         this.isAdmin = isAdmin;
@@ -43,6 +43,6 @@ public class User {
     }
 
     public void addHotSearch(String name, String desc) {
-        HotSearch hotSearch = new HotSearch(name, desc);
+        HotSearch hotSearch = new HotSearch(desc);
     }
 }
