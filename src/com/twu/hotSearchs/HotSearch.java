@@ -8,7 +8,7 @@ public class HotSearch implements Comparable<HotSearch> {
     private boolean superHotSearch;
 
     public HotSearch(String name, String desc){
-        synchronized (this) {
+        synchronized (HotSearch.class) {
             id++;
         }
         this.name = name;
