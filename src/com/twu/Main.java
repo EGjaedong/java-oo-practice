@@ -29,7 +29,7 @@ public class Main {
                 break;
             if (input.equals("logout"))
                 continue;
-            User user = findUser(userPool, input);
+            User user = userPool.findUser(input);
             if (user == null) {
                 System.out.println("User is not exist, Please try again.");
                 continue;
@@ -143,13 +143,6 @@ public class Main {
         admin.addSuperHotSearch(input);
     }
 
-    private static void printHotSearchRank(Set<HotSearch> hotSearches) {
-        hotSearches.stream().limit(10).forEach(hs -> {
-            String su = hs.isSuperHotSearch() ? " ---- super" : "";
-            System.out.println(hs.getDesc() + " heat number is " + hs.getHeatNumber() + " money is " + hs.getMoney() + su);
-        });
-    }
-
     private static void watchHotSearch(User user) {
         Set<HotSearch> hotSearches = user.viewHotSearchRank();
         printHotSearchRank(hotSearches);
@@ -161,7 +154,7 @@ public class Main {
         user.addHotSearch(input);
     }
 
-    public static void addUser(UserPool userPool) {
+    private static void addUser(UserPool userPool) {
         userPool.addUser("admin1", true);
         userPool.addUser("admin2", true);
         userPool.addUser("customer1", false);
@@ -169,7 +162,14 @@ public class Main {
         userPool.addUser("customer3", false);
     }
 
-    public static void initHotSearch(HotSearchPool hotSearchPool) {
+    private static void printHotSearchRank(Set<HotSearch> hotSearches) {
+        hotSearches.stream().limit(10).forEach(hs -> {
+            String su = hs.isSuperHotSearch() ? " ---- super" : "";
+            System.out.println(hs.getDesc() + " heat number is " + hs.getHeatNumber() + " money is " + hs.getMoney() + su);
+        });
+    }
+
+    private static void initHotSearch(HotSearchPool hotSearchPool) {
         HotSearch hs1 = new HotSearch("no1");
         hs1.setHeatNumber(10);
         hs1.setMoney(100);
@@ -188,10 +188,5 @@ public class Main {
         hotSearchPool.addSearch(hs3);
         hotSearchPool.addSearch(hs4);
         hotSearchPool.addSearch(hs5);
-    }
-
-    public static User findUser(UserPool userPool, String userName) {
-        User user = userPool.findUser(userName);
-        return user;
     }
 }
