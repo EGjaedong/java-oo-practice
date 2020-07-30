@@ -9,7 +9,7 @@ public class HotSearchPool {
 
     private HotSearchPool(){}
 
-    static synchronized HotSearchPool createHotSearchPool() {
+    public static synchronized HotSearchPool createHotSearchPool() {
         if (hotSearchPool == null){
             hotSearchPool = new HotSearchPool();
         }
