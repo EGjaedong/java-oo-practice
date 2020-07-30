@@ -12,6 +12,14 @@ public class User {
     protected HotSearchPool hotSearches;
     protected boolean isAdmin = false;
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     public User(HotSearchPool hotSearches, String name, boolean isAdmin) {
         this.hotSearches = hotSearches;
         this.name = name;

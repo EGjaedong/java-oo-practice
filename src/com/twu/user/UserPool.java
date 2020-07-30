@@ -30,4 +30,8 @@ public class UserPool {
         User user = users.get(userName);
         return user.isAdmin;
     }
+
+    public User findUser(String userName){
+        return users.get(userName);
+    }
 }
