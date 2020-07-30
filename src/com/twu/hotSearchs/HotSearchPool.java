@@ -1,6 +1,7 @@
 package com.twu.hotSearchs;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HotSearchPool {
     private Set<HotSearch> hotSearches = new TreeSet<>();
@@ -29,5 +30,32 @@ public class HotSearchPool {
         synchronized (this) {
             hotSearches.add(search);
         }
+    }
+
+    private HotSearch findHotSearch(String hsName){
+        try {
+            List<HotSearch> collect = hotSearches.stream().filter(hs -> {
+                return hs.getDesc().equals(hsName);
+            }).collect(Collectors.toList());
+            return collect.get(0);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    private void sortHotSearch(){
+        List<HotSearch> list = new ArrayList<>(hotSearches);
+
+        hotSearches = new TreeSet<>();
+        hotSearches.addAll(list);
+        System.out.println(hotSearches);
+    }
+
+    public void voteHotSearch(String hsName) {
+        HotSearch hotSearch = findHotSearch(hsName);
+        if (hotSearch == null)
+            throw new IllegalArgumentException("error argument");
+        hotSearch.addHeatNumber();
+        sortHotSearch();
     }
 }

@@ -20,7 +20,7 @@ public class User {
         isAdmin = admin;
     }
 
-    public User(HotSearchPool hotSearches, String name, boolean isAdmin) {
+    protected User(HotSearchPool hotSearches, String name, boolean isAdmin) {
         this.hotSearches = hotSearches;
         this.name = name;
         synchronized (User.class){
@@ -50,7 +50,8 @@ public class User {
         return hotSearches.getHotSearches();
     }
 
-    public void addHotSearch(String name, String desc) {
+    public void addHotSearch(String desc) {
         HotSearch hotSearch = new HotSearch(desc);
+        hotSearches.addSearch(hotSearch);
     }
 }

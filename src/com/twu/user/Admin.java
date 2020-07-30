@@ -8,8 +8,9 @@ public class Admin extends User {
         super(hotSearches, name, true);
     }
 
-    public void addSuperHotSearch(String name, String desc) {
+    public void addSuperHotSearch(String desc) {
         HotSearch hotSearch = new HotSearch(desc);
         hotSearch.setSuperHotSearch(true);
+        hotSearches.addSearch(hotSearch);
     }
 }

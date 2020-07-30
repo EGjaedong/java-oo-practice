@@ -22,7 +22,12 @@ public class UserPool {
     }
 
     public void addUser(String name, boolean isAdmin) {
-        User user = new User(hotSearches, name, isAdmin);
+        User user = null;
+        if (isAdmin){
+            user = new Admin(hotSearches, name);
+        }else {
+            user = new Customer(hotSearches, name);
+        }
         this.users.put(user.getName(), user);
     }
 
