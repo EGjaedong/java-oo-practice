@@ -33,4 +33,13 @@ public class Admin {
     public Set<HotSearch> viewHotSearchRank() {
         return hotSearches.getHotSearches();
     }
+
+    public void addHotSearch(String name, String desc) {
+        HotSearch hotSearch = new HotSearch(name, desc);
+    }
+
+    public void addSuperHotSearch(String name, String desc){
+        HotSearch hotSearch = new HotSearch(name, desc);
+        hotSearch.setSuperHotSearch(true);
+    }
 }
