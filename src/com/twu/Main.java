@@ -23,7 +23,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = null;
         while (true) {
-            System.out.println("Please input your name to login:\n");
+            System.out.println("Please input your name to login:");
             input = scanner.nextLine();
             if (input.equals("quit"))
                 break;
@@ -38,11 +38,9 @@ public class Main {
             String optionString = null;
             if (isAdmin) {
                 optionString = adminOption(scanner, user);
-            }
-            else {
+            } else {
                 optionString = costumerOption(scanner, user);
             }
-            assert optionString != null;
             if (optionString.equals("quit"))
                 break;
             else if (optionString.equals("logout"))
@@ -52,7 +50,7 @@ public class Main {
 
     private static String adminOption(Scanner scanner, User user) {
         while (true) {
-            System.out.println("Please select your option: 1、watch hot search. 2、add hot search. 3、add super hot search\n");
+            System.out.println("Please select your option: 1、watch hot search. 2、add hot search. 3、add super hot search");
             String input = scanner.nextLine();
             if (input.equals("quit") || input.equals("logout"))
                 return input;
@@ -77,7 +75,7 @@ public class Main {
 
     private static String costumerOption(Scanner scanner, User user) {
         while (true) {
-            System.out.println("Please select your option: 1、watch hot search. 2、add hot search. 3、vote to hot search. 4、by hot search\n");
+            System.out.println("Please select your option: 1、watch hot search. 2、add hot search. 3、vote to hot search. 4、by hot search");
             String input = scanner.nextLine();
             if (input.equals("quit") || input.equals("logout"))
                 return input;
@@ -90,20 +88,13 @@ public class Main {
                     watchHotSearch(user);
                     break;
                 case "3":
-                    System.out.println("Please input hot search name:\n");
-                    input = scanner.nextLine();
-                    Customer customer = (Customer) user;
-                    try {
-                        customer.voteToHotSearch(input);
-                    }catch (Exception e){
-                        System.out.println("Hot Search not found");
-                        break;
-                    }
+                    voteToHotSearch(scanner, user);
                     watchHotSearch(user);
                     System.out.println("3");
                     break;
                 case "4":
-
+                    buyHotSearch(scanner, user);
+                    watchHotSearch(user);
                     System.out.println("4");
                     break;
                 default:
@@ -113,13 +104,37 @@ public class Main {
         }
     }
 
-    private static void voteToHotSearch(User user) {
+    private static void buyHotSearch(Scanner scanner, User user) {
+        System.out.println("Please select which hot search would you buy:");
+        String input = scanner.nextLine();
+        System.out.println("How much money would you pay!");
+        double money = Double.parseDouble(scanner.nextLine());
+        Customer customer = (Customer) user;
+        try {
+            customer.buyHotSearch(input, money);
+            System.out.println("Pay success!");
+        } catch (Exception e) {
+            System.out.println("Hot search not found!");
+        }
+    }
 
+    private static void voteToHotSearch(Scanner scanner, User user) {
+        System.out.println("Please input hot search name:");
+        String input = scanner.nextLine();
+        Customer customer = (Customer) user;
+        try {
+            String message = customer.voteToHotSearch(input);
+            if (message.equals("vote number is not enough")) {
+                System.out.println("Your vote number is zero");
+            }
+        } catch (Exception e) {
+            System.out.println("Hot Search not found!");
+        }
     }
 
     private static void addSuperHotSearch(Scanner scanner, User user) {
         Admin admin = null;
-        if (user.isAdmin()){
+        if (user.isAdmin()) {
             admin = (Admin) user;
         }
         System.out.println("Please input hot search name");
@@ -128,19 +143,19 @@ public class Main {
         admin.addSuperHotSearch(input);
     }
 
-    private static void printHotSearchRank(Set<HotSearch> hotSearches){
-        hotSearches.stream().limit(10).forEach(hs->{
+    private static void printHotSearchRank(Set<HotSearch> hotSearches) {
+        hotSearches.stream().limit(10).forEach(hs -> {
             String su = hs.isSuperHotSearch() ? " ---- super" : "";
-            System.out.println(hs.getDesc() + " heat number is " + hs.getHeatNumber() + su);
+            System.out.println(hs.getDesc() + " heat number is " + hs.getHeatNumber() + " money is " + hs.getMoney() + su);
         });
     }
 
-    private static void watchHotSearch(User user){
+    private static void watchHotSearch(User user) {
         Set<HotSearch> hotSearches = user.viewHotSearchRank();
         printHotSearchRank(hotSearches);
     }
 
-    private static void addHotSearch(Scanner scanner, User user){
+    private static void addHotSearch(Scanner scanner, User user) {
         System.out.println("Please input hot search name");
         String input = scanner.nextLine();
         user.addHotSearch(input);
@@ -157,8 +172,10 @@ public class Main {
     public static void initHotSearch(HotSearchPool hotSearchPool) {
         HotSearch hs1 = new HotSearch("no1");
         hs1.setHeatNumber(10);
+        hs1.setMoney(100);
         HotSearch hs2 = new HotSearch("no2");
         hs2.setHeatNumber(15);
+        hs2.setMoney(90);
         HotSearch hs3 = new HotSearch("no3");
         hs3.setHeatNumber(13);
         HotSearch hs4 = new HotSearch("no4");

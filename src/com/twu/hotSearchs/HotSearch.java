@@ -5,7 +5,7 @@ import java.util.Objects;
 public class HotSearch implements Comparable<HotSearch> {
     private static long id;
     private String desc;
-
+    private double money = 0;
 
     private long heatNumber = 0;
     private boolean superHotSearch;
@@ -52,6 +52,14 @@ public class HotSearch implements Comparable<HotSearch> {
             this.heatNumber++;
     }
 
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,13 +78,22 @@ public class HotSearch implements Comparable<HotSearch> {
         if (o == null)
             throw new RuntimeException();
 
-        if (this.heatNumber > o.heatNumber)
+        if (this.getMoney() > o.getMoney()){
             return -1;
-        else if (this.heatNumber == o.heatNumber) {
-            int res = this.getDesc().compareTo(o.getDesc());
-            return Integer.compare(res, 0);
-        }else {
+        }else if (this.getMoney() == o.getMoney()){
+            if (this.heatNumber > o.heatNumber)
+                return -1;
+            else if (this.heatNumber == o.heatNumber) {
+                int res = this.getDesc().compareTo(o.getDesc());
+                return Integer.compare(res, 0);
+            }else {
+                return 1;
+            }
+        }else
             return 1;
-        }
+    }
+
+    public void addMoney(double money) {
+        this.money+=money;
     }
 }

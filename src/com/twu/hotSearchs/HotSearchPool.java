@@ -8,10 +8,11 @@ public class HotSearchPool {
 
     static HotSearchPool hotSearchPool;
 
-    private HotSearchPool(){}
+    private HotSearchPool() {
+    }
 
     public static synchronized HotSearchPool createHotSearchPool() {
-        if (hotSearchPool == null){
+        if (hotSearchPool == null) {
             hotSearchPool = new HotSearchPool();
         }
 
@@ -32,18 +33,18 @@ public class HotSearchPool {
         }
     }
 
-    private HotSearch findHotSearch(String hsName){
+    private HotSearch findHotSearch(String hsName) {
         try {
             List<HotSearch> collect = hotSearches.stream().filter(hs -> {
                 return hs.getDesc().equals(hsName);
             }).collect(Collectors.toList());
             return collect.get(0);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    private void sortHotSearch(){
+    private void sortHotSearch() {
         List<HotSearch> list = new ArrayList<>(hotSearches);
 
         hotSearches = new TreeSet<>();
@@ -51,11 +52,19 @@ public class HotSearchPool {
         System.out.println(hotSearches);
     }
 
-    public void voteHotSearch(String hsName) {
+    public void voteHotSearch(String hsName) throws IllegalArgumentException {
         HotSearch hotSearch = findHotSearch(hsName);
         if (hotSearch == null)
             throw new IllegalArgumentException("error argument");
         hotSearch.addHeatNumber();
+        sortHotSearch();
+    }
+
+    public void buyHotSearch(String hsName, double money) throws IllegalArgumentException {
+        HotSearch hotSearch = findHotSearch(hsName);
+        if (hotSearch == null)
+            throw new IllegalArgumentException("error argument");
+        hotSearch.addMoney(money);
         sortHotSearch();
     }
 }
