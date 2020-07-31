@@ -23,7 +23,7 @@ public class Customer extends User {
     }
 
     private void reduceVoteNumber(int votes) {
-        voteNumber--;
+        voteNumber-=votes;
     }
 
     public void buyHotSearch(String hsName, int money) throws IllegalArgumentException {
