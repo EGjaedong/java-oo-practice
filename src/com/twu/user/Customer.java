@@ -10,8 +10,13 @@ public class Customer extends User {
 
     public String voteToHotSearch(String hsName, int votes) throws IllegalArgumentException {
         if (voteNumber > 0){
-            hotSearches.voteHotSearch(hsName, votes);
-            reduceVoteNumber(votes);
+            if (voteNumber < votes){
+                hotSearches.voteHotSearch(hsName, voteNumber);
+                reduceVoteNumber(voteNumber);
+            } else {
+                hotSearches.voteHotSearch(hsName, votes);
+                reduceVoteNumber(votes);
+            }
             return "success";
         }else
             return "vote number is not enough";
