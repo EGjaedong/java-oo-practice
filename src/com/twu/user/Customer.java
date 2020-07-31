@@ -8,9 +8,9 @@ public class Customer extends User {
         super(hotSearches, name, false);
     }
 
-    public String voteToHotSearch(String hsName) throws IllegalArgumentException {
+    public String voteToHotSearch(String hsName, int votes) throws IllegalArgumentException {
         if (voteNumber > 0){
-            hotSearches.voteHotSearch(hsName);
+            hotSearches.voteHotSearch(hsName, votes);
             reduceVoteNumber();
             return "success";
         }else

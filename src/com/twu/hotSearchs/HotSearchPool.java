@@ -52,11 +52,11 @@ public class HotSearchPool {
         System.out.println(hotSearches);
     }
 
-    public void voteHotSearch(String hsName) throws IllegalArgumentException {
+    public void voteHotSearch(String hsName, int voteNumber) throws IllegalArgumentException {
         HotSearch hotSearch = findHotSearch(hsName);
         if (hotSearch == null)
             throw new IllegalArgumentException("error argument");
-        hotSearch.addHeatNumber();
+        hotSearch.addHeatNumber(voteNumber);
         sortHotSearch();
     }
 

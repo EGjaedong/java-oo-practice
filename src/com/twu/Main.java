@@ -121,9 +121,11 @@ public class Main {
     private static void voteToHotSearch(Scanner scanner, User user) {
         System.out.println("Please input hot search name:");
         String input = scanner.nextLine();
+        System.out.println("Please input vote numbers:");
+        Integer votes = Integer.parseInt(scanner.nextLine());
         Customer customer = (Customer) user;
         try {
-            String message = customer.voteToHotSearch(input);
+            String message = customer.voteToHotSearch(input, votes);
             if (message.equals("vote number is not enough")) {
                 System.out.println("Your vote number is zero");
             }

@@ -10,7 +10,7 @@ public class HotSearch implements Comparable<HotSearch> {
     private long heatNumber = 0;
     private boolean superHotSearch;
 
-    public HotSearch(String desc){
+    public HotSearch(String desc) {
         synchronized (HotSearch.class) {
             id++;
         }
@@ -45,11 +45,11 @@ public class HotSearch implements Comparable<HotSearch> {
         this.superHotSearch = superHotSearch;
     }
 
-    public void addHeatNumber(){
+    public void addHeatNumber(int voteNumber) {
         if (this.isSuperHotSearch())
-            this.heatNumber+=2;
+            this.heatNumber += (2 * voteNumber);
         else
-            this.heatNumber++;
+            this.heatNumber += voteNumber;
     }
 
     public double getMoney() {
@@ -78,22 +78,22 @@ public class HotSearch implements Comparable<HotSearch> {
         if (o == null)
             throw new RuntimeException();
 
-        if (this.getMoney() > o.getMoney()){
+        if (this.getMoney() > o.getMoney()) {
             return -1;
-        }else if (this.getMoney() == o.getMoney()){
+        } else if (this.getMoney() == o.getMoney()) {
             if (this.heatNumber > o.heatNumber)
                 return -1;
             else if (this.heatNumber == o.heatNumber) {
                 int res = this.getDesc().compareTo(o.getDesc());
                 return Integer.compare(res, 0);
-            }else {
+            } else {
                 return 1;
             }
-        }else
+        } else
             return 1;
     }
 
     public void addMoney(int money) {
-        this.money+=money;
+        this.money += money;
     }
 }
