@@ -108,7 +108,7 @@ public class Main {
         System.out.println("Please select which hot search would you buy:");
         String input = scanner.nextLine();
         System.out.println("How much money would you pay!");
-        double money = Double.parseDouble(scanner.nextLine());
+        int money = Integer.parseInt(scanner.nextLine());
         Customer customer = (Customer) user;
         try {
             customer.buyHotSearch(input, money);

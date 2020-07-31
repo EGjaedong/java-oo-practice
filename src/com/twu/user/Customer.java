@@ -21,7 +21,7 @@ public class Customer extends User {
         voteNumber--;
     }
 
-    public void buyHotSearch(String hsName, double money) throws IllegalArgumentException {
+    public void buyHotSearch(String hsName, int money) throws IllegalArgumentException {
         hotSearches.buyHotSearch(hsName, money);
     }
 }

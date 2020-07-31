@@ -5,7 +5,7 @@ import java.util.Objects;
 public class HotSearch implements Comparable<HotSearch> {
     private static long id;
     private String desc;
-    private double money = 0;
+    private int money = 0;
 
     private long heatNumber = 0;
     private boolean superHotSearch;
@@ -56,7 +56,7 @@ public class HotSearch implements Comparable<HotSearch> {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 
@@ -93,7 +93,7 @@ public class HotSearch implements Comparable<HotSearch> {
             return 1;
     }
 
-    public void addMoney(double money) {
+    public void addMoney(int money) {
         this.money+=money;
     }
 }

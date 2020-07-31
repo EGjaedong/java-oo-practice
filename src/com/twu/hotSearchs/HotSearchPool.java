@@ -60,7 +60,7 @@ public class HotSearchPool {
         sortHotSearch();
     }
 
-    public void buyHotSearch(String hsName, double money) throws IllegalArgumentException {
+    public void buyHotSearch(String hsName, int money) throws IllegalArgumentException {
         HotSearch hotSearch = findHotSearch(hsName);
         if (hotSearch == null)
             throw new IllegalArgumentException("error argument");
